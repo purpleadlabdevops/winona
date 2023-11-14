@@ -1,0 +1,78 @@
+.btn{
+  background: var(--purple);
+  color: var(--white);
+  font-size: 16px;
+  transition: .5s ease;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-align: center;
+  border: none;
+  letter-spacing: .15rem;
+  text-transform: uppercase;
+  &:hover{
+    opacity: .9;
+  }
+  &:disabled{
+    opacity: .5;
+    cursor: no-drop;
+  }
+  &-white{
+    background: var(--white);
+    border: 1.6px solid var(--plum);
+    color: var(--plum);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-weight: 700;
+  }
+  &-lg{
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-weight: 700;
+  }
+  &-green{
+    padding: 14px 80px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: var(--cyan);
+    display: inline-block;
+    letter-spacing: 2.4px;
+  }
+  &-mint{
+    padding: 14px 60px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: var(--cyan);
+    letter-spacing: 2.4px;
+    border-radius: 30px;
+  }
+  &-plum{
+    background: var(--plum);
+    font-size: 18px;
+    color: var(--green);
+    padding: 14px 24px;
+  }
+  &-cyan{
+    background: var(--cyan);
+    font-size: 18px;
+    color: rgb(204, 255, 255);
+    padding: 14px 24px;
+  }
+  &-cyan_txt{
+    background: none;
+    font-size: 18px;
+    color: var(--cyan);
+    padding: 14px 24px;
+  }
+  &-gray{
+    background: rgb(242, 242, 242);
+    color: rgb(25, 25, 28);
+    font-size: 16px;
+    height: 54px;
+    &.active{
+      background: var(--cyan);
+      color: rgb(204, 255, 255);
+    }
+  }
+}
