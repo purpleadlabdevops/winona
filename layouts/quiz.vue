@@ -9,14 +9,17 @@
 <style lang="scss" scoped>
 .layout{
   &__quiz{
-    padding-top: 85px;
     background: rgba(255, 255, 255, 0);
     height: 100vh;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: 1s ease;
+    overflow: hidden;
+    @media(min-width:768px){
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 85px;
+    }
     &-bg{
       background: #F5F1FF;
       .layout__img{
@@ -29,13 +32,16 @@
     position: absolute;
     z-index: 1;
     left: 50%;
-    bottom: -70px;
+    bottom: 0;
     transform: translateX(-50%);
     width: 65%;
     height: auto;
     visibility: hidden;
     opacity: 0;
     transition: 1s ease;
+    @media(min-width:768px){
+      bottom: -70px;
+    }
   }
 }
 </style>

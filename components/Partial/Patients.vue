@@ -62,40 +62,110 @@ const slider = {
   },
   items: [
     {
-      name: 'Meg Marie',
-      title: 'Highly Recommend',
-      date: '1 day ago',
-      text: 'The process is simple, the products WORK! And the customer service is truly exce...',
-      verified: true
+      "verified": true,
+      "title": "The first couple of weeks I was…",
+      "text": "The first couple of weeks I was skeptical, I did have hot flashes and were uncom...",
+      "name": "Karina",
+      "date": "7 hours ago"
     },
     {
-      name: 'Meg Marie 2',
-      title: 'Highly Recommend',
-      date: '1 day ago',
-      text: 'The process is simple, the products WORK! And the customer service is truly exce...',
-      verified: false
+      "verified": true,
+      "title": "Winona is legit!",
+      "text": "Winona is legit! I’ve had good relief from symptoms, post menopause. I’ve also t...",
+      "name": "Kristin",
+      "date": "7 hours ago"
     },
     {
-      name: 'Meg Marie 3',
-      title: 'Highly Recommend',
-      date: '1 day ago',
-      text: 'The process is simple, the products WORK! And the customer service is truly exce...',
-      verified: false
+      "verified": true,
+      "title": "Nice",
+      "text": "Nice, simple, and easy... the medication has been very helpful, sleeping better...",
+      "name": "Shelia",
+      "date": "16 hours ago"
     },
     {
-      name: 'Meg Marie 4',
-      title: 'Highly Recommend',
-      date: '1 day ago',
-      text: 'The process is simple, the products WORK! And the customer service is truly exce...',
-      verified: true
+      "verified": true,
+      "title": "Ease, expertise, results",
+      "text": "I love the ease, expertise and results!! Thank you for giving me my life back.",
+      "name": "Elizabeth",
+      "date": "1 day ago"
     },
     {
-      name: 'Meg Marie 5',
-      title: 'Highly Recommend',
-      date: '1 day ago',
-      text: 'The process is simple, the products WORK! And the customer service is truly exce...',
-      verified: true
+      "verified": true,
+      "title": "So far really good!",
+      "text": "So far really good!",
+      "name": "Kathleen",
+      "date": "2 days ago"
     },
+    {
+      "verified": true,
+      "title": "Very positive experience!",
+      "text": "From the first time I became aware of Winona, I have had a very positive experie...",
+      "name": "Lisa Goodall",
+      "date": "2 days ago"
+    },
+    {
+      "verified": true,
+      "title": "reduced hot flashes",
+      "text": "In about three weeks, it cut my hot flashes down by 90%.",
+      "name": "Margaret",
+      "date": "2 days ago"
+    },
+    {
+      "verified": true,
+      "title": "Winona has been very courteous and…",
+      "text": "Winona has been very courteous and always responsive to my messages if I need a...",
+      "name": "Rhonda",
+      "date": "2 days ago"
+    },
+    {
+      "verified": true,
+      "title": "Winona is helping make life better!",
+      "text": "The doctor and staff seem very knowledgeable and understanding of menopause. I a...",
+      "name": "Maureen",
+      "date": "2 days ago"
+    },
+    {
+      "verified": true,
+      "title": "It works and the patient care is…",
+      "text": "It works and the patient care is wonderful!",
+      "name": "Amy Roach",
+      "date": "2 days ago"
+    },
+    {
+      "verified": true,
+      "title": "Very fast reply from doctor of all my…",
+      "text": "Very fast reply from doctor of all my concerns. I feel so much better after 3 we...",
+      "name": "Quynh",
+      "date": "2 days ago"
+    },
+    {
+      "verified": true,
+      "title": "I had a hard time for awhile with a lot…",
+      "text": "I had a hard time for awhile with a lot of things. Not sleeping, weight gain, pa...",
+      "name": "Kellen Hillpot",
+      "date": "3 days ago"
+    },
+    {
+      "verified": true,
+      "title": "Product",
+      "text": "Product, ease of order, being heard and understood",
+      "name": "Catherine",
+      "date": "3 days ago"
+    },
+    {
+      "verified": true,
+      "title": "Finally Some Relief!",
+      "text": "When I started going through perimenopause, I was exhibiting a multitude of symp...",
+      "name": "Mia",
+      "date": "3 days ago"
+    },
+    {
+      "verified": true,
+      "title": "Winona is so easy to work with",
+      "text": "Winona is so easy to work with! All my questions were answered quickly and I’m...",
+      "name": "Abigail Hoven",
+      "date": "3 days ago"
+    }
   ]
 }
 </script>

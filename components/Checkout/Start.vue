@@ -34,6 +34,9 @@ const emit = defineEmits(['start']),
     right: 0;
     z-index: 101;
     transition: .5s ease;
+    @media(max-width:767px){
+      padding-left: 40px;
+    }
     &-hide{
       opacity: 0;
       visibility: hidden;
@@ -63,11 +66,11 @@ const emit = defineEmits(['start']),
   }
   &__consult{
     color: var(--green);
-    font-size: res(13, 16);
+    font-size: res(10, 16);
     letter-spacing: 2.88px;
     position: absolute;
-    bottom: res(10, 24);
-    left: 12px;
+    bottom: res(5, 24);
+    left: res(5, 12);
     transform: rotate(-90deg);
     transform-origin: 0 0;
   }

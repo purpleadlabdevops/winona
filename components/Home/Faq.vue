@@ -19,7 +19,7 @@ import { ref } from 'vue'
 
 const itemIndex = ref(false)
 
-const items = ref([
+const items = [
   {
     q: 'What is bioidentical HRT?',
     a: `Hormone replacement therapy (HRT) replenishes the levels of estrogen, progesterone, and testosterone that decline and fluctuate with age. Supplementing these hormones helps combat the symptoms of menopause and prevent the development of long-term diseases that can result from hormone deficiencies. The goal of HRT is to help your body maintain healthy, balanced hormone levels for holistic wellness. All of the hormones in Winona treatments are plant-based and bioidentical, meaning they are functionally identical to those produced naturally in your body.`,
@@ -64,7 +64,7 @@ const items = ref([
     q: 'Which treatment should I add?',
     a: `Treatments must be added by your physician. You'll first need to complete our online questionnaire, to have a prescription order placed with Winona. Once you’ve filled out the questionnaire, you’ll receive a recommended treatment plan. The doctor will review your treatment plan, order your prescription to the pharmacy, and then have it shipped directly to your door.`
   }
-])
+]
 
 const openQuestion = index => itemIndex.value = index === itemIndex.value ? false : index
 </script>

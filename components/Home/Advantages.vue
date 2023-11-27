@@ -23,9 +23,7 @@
 </template>
 
 <script  setup>
-import { ref } from 'vue'
-
-const items = ref([
+const items = [
   {
     title: 'The Visit',
     subtitle: 'Your easiest visit ever.',
@@ -45,7 +43,7 @@ const items = ref([
     text: 'No more waiting in line at the pharmacy! If your doctor decides a treatment is right for you, your medications will be shipped right to your door. We’ll check in regularly to make sure you’re feeling great and make adjustments to your treatment if needed.',
     img: 'adv-01'
   }
-])
+]
 </script>
 
 <style lang="scss" scoped>

@@ -242,7 +242,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import {ref} from 'vue'
 
 definePageMeta({
@@ -253,7 +253,7 @@ const step = ref(0)
 
 const emit = defineEmits(['onTesting'])
 
-const nextStep = (index: number) => {
+const nextStep = index => {
   step.value = index
   if(index > 0){
     document.querySelector('.layout__quiz').classList.remove('layout__quiz-bg')
@@ -263,7 +263,7 @@ const nextStep = (index: number) => {
 }
 
 const age = (''),
-      ageError = ref(true as Boolean),
+      ageError = ref(true),
       ageInput = val => {
         if(isNaN(val) || val.length === 0 || Number(val) < 18 || Number(val) > 99){
           ageError.value = true
@@ -352,12 +352,27 @@ const birth = ref(false),
 const startVisit = () => {
   console.log('startVisit')
 }
+
+onMounted(() => {
+  setTimeout(()=>{
+    const headerQuiz = document.querySelector('.header__quiz'),
+          pageHealth = document.querySelector('.page__health')
+    pageHealth.style = `height: calc(100vh - ${headerQuiz.clientHeight}px);`
+  }, 0)
+})
 </script>
 
 <style lang="scss" scoped>
 .page__health{
   position: relative;
   z-index: 2;
+  @media(max-width:767px){
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+  }
   h1{
     color: rgb(43, 38, 96);
     font-size: res(30, 48);
@@ -404,11 +419,14 @@ const startVisit = () => {
     margin-top: 30px;
   }
   .btn{
-    width: 400px;
+    width: 100%;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     display: block;
+    @media(min-width:768px){
+      width: 400px;
+    }
     &-plum{
       margin-top: 50px;
     }
@@ -422,6 +440,8 @@ const startVisit = () => {
 }
 .health{
   &__step{
+    padding-left: 10px;
+    padding-right: 10px;
     &-0{
       p{
         font-size: 14px;

@@ -14,7 +14,7 @@
       <nuxt-link
         v-if="!['health-quiz', 'checkout'].includes(route.name)"
         class="btn"
-        to="/">
+        to="/health-quiz">
         GET STARTED
       </nuxt-link>
     </div>
@@ -60,6 +60,9 @@ if(process.client){
   }
   &__quiz{
     background: none;
+    @media(max-width:767px){
+      position: relative;
+    }
   }
   &__checkout{
     background-color: #edffe1;
