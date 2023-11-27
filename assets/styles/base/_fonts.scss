@@ -1,0 +1,65 @@
+/* ---------- START Hatton font ---------- */
+@font-face {
+  font-family: 'Hatton';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/hatton/Hatton-Medium.otf') format("opentype"),
+  url('/fonts/hatton/Hatton-Medium.woff') format('woff');
+}
+@font-face {
+  font-family: 'Hatton';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/hatton/Hatton-Semibold.otf') format("opentype"),
+  url('/fonts/hatton/Hatton-Semibold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Hatton';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/fonts/hatton/Hatton-Ultralight.otf') format("opentype"),
+  url('/fonts/hatton/Hatton-Ultralight.woff') format('woff');
+}
+/* ---------- END Hatton font ---------- */
+/* ---------- START Atten New font ---------- */
+@font-face {
+  font-family: 'Atten New';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/atten-new/AttenNewBook.otf') format("opentype"),
+  url('/fonts/atten-new/AttenNewBook.woff') format('woff');
+}
+@font-face {
+  font-family: 'Atten New';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/atten-new/AttenNewRegular.otf') format("opentype"),
+  url('/fonts/atten-new/AttenNewRegular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Atten New';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/atten-new/AttenNewMedium.otf') format("opentype"),
+  url('/fonts/atten-new/AttenNewMedium.woff') format('woff');
+}
+@font-face {
+  font-family: 'Atten New';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/atten-new/AttenNewBold.otf') format("opentype"),
+  url('/fonts/atten-new/AttenNewBold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Atten New';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/atten-new/AttenNewExtraBold.otf') format("opentype"),
+  url('/fonts/atten-new/AttenNewExtraBold.woff') format('woff');
+}
+/* ---------- END Atten New font ---------- */

@@ -74,7 +74,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useGlobalStore } from '~/store/global'
+import { useGlobalStore } from '~/stores/global'
 
 const globalStore = useGlobalStore()
 const emit = defineEmits(['shipping', 'payment'])

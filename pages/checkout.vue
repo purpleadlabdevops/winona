@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '~/store/global'
+import { useGlobalStore } from '~/stores/global'
 
 const globalStore = useGlobalStore()
 

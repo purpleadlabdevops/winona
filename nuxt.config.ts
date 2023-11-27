@@ -1,7 +1,7 @@
 import { defineNuxtModule } from 'nuxt'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   app: {
     head: {
       title: 'Winona title',
@@ -11,12 +11,12 @@ export default defineNuxtConfig({
   },
   plugins: ['~/plugins/maska'],
   modules: ['@pinia/nuxt'],
-  css: ["@/styles/global.scss"],
+  css: ["~/assets/styles/global.scss"],
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "~/styles/base/_functions.scss";',
+          additionalData: '@import "~/assets/styles/base/_functions.scss";',
         },
       },
     },
