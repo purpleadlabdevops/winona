@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <Image class="banner__img" format="jpeg" name="banner" />
+    <Image class="banner__img" format="webp" name="banner" alt="banner image" />
   </section>
 </template>
 

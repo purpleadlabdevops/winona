@@ -1,7 +1,7 @@
 <template>
   <section class="review">
     <div class="container">
-      <div class="review__img"><Image format="png" name="review" /></div>
+      <div class="review__img"><Image format="webp" name="review" alt="review picture" /></div>
       <div class="review__info">
         <h2>Trusted by thousands of <br> happy patients:</h2>
         <div class="review__text">I was skeptical at first, but with my fatigue, joint pain and unending mood swings, I decided to give it a try. The process was quite easy and I had access to a real doctor. Once I received my prescriptions, I immediately felt the change. My moods evened out. My skin halted its progress to just dry and like crepe to what it was before. I sleep better, I’m not exhausted, and I feel like my old self. ”</div>

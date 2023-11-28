@@ -125,7 +125,7 @@
 
       <div class="health__step health__step-5" v-if="step === 5">
         <div class="health__menopause">
-          <img src="@/assets/about_menopause.png" alt="About menopause">
+          <Image format="webp" name="about_menopause" alt="About menopause" />
           <div class="health__menopause__text">
             <h3>You’re not alone. Did you know there are actually 100+ menopause-related symptoms?</h3>
             <p>Want to check all your possible symptoms? Enter your email address below and receive our free ebook to learn how changes in hormone levels during menopause can cause symptoms such as weight gain, fatigue, brain fog, painful sex, poor sleep, and more.</p>

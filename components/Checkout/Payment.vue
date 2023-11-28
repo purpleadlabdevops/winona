@@ -31,9 +31,9 @@
               <svg viewBox="0 0 16 16" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path fill="rgb(205 252 177)" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path></svg>
               Credit or Debit Card
               <div class="payment__banks">
-                <img src="@/assets/jcb.svg" />
-                <img src="@/assets/visa.svg" />
-                <img src="@/assets/mastercard.svg" />
+                <Image format="svg" src="jcb" alt="jcb icon" />
+                <Image format="svg" src="visa" alt="visa icon" />
+                <Image format="svg" src="mastercard" alt="mastercard icon" />
               </div>
             </div>
             <div class="payment__card__body">

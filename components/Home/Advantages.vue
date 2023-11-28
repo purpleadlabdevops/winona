@@ -9,7 +9,7 @@
             <div class="advantages__subtitle"><span>{{ item.subtitle }}</span></div>
           </div>
         </div>
-        <Image format="jpeg" :name="item.img" :alt="item.title" />
+        <Image format="webp" :name="item.img" :alt="item.title" />
         <div class="advantages__content">
           <div class="advantages__text">{{ item.text }}</div>
           <div class="advantages__subtext" v-if="item.subtext">{{ item.subtext }}</div>

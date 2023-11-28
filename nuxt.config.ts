@@ -4,9 +4,15 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
       title: 'Winona title',
       charset: 'utf-8',
       viewport: 'width=device-width, user-scalable=no, user-scalable=0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 user-scalable=0',
+      meta: [
+        { name: 'description', content: 'My amazing Winona site.' }
+      ],
     },
   },
   plugins: ['~/plugins/maska'],
