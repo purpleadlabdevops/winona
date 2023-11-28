@@ -366,13 +366,12 @@ onMounted(() => {
 .page__health{
   position: relative;
   z-index: 2;
-  @media(max-width:767px){
-    overflow-y: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-  }
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  width: 100%;
   h1{
     color: rgb(43, 38, 96);
     font-size: res(30, 48);
