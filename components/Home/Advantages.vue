@@ -22,8 +22,16 @@
   </section>
 </template>
 
-<script  setup>
-const items = [
+<script lang="ts" setup>
+interface ItemType {
+  title: string | boolean
+  subtitle: string | boolean
+  text: string | boolean
+  subtext: string | boolean
+  img: string | boolean
+}
+
+const items: Array<ItemType> = [
   {
     title: 'The Visit',
     subtitle: 'Your easiest visit ever.',

@@ -37,4 +37,7 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     preset: "node-server",
   },
+  typescript: {
+    typeCheck: true
+  }
 })

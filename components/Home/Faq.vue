@@ -14,12 +14,17 @@
   </section>
 </template>
 
-<script  setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 
 const itemIndex = ref(false)
 
-const items = [
+interface ItemType {
+  q: string | boolean
+  a: string | boolean
+}
+
+const items: Array<ItemType> = [
   {
     q: 'What is bioidentical HRT?',
     a: `Hormone replacement therapy (HRT) replenishes the levels of estrogen, progesterone, and testosterone that decline and fluctuate with age. Supplementing these hormones helps combat the symptoms of menopause and prevent the development of long-term diseases that can result from hormone deficiencies. The goal of HRT is to help your body maintain healthy, balanced hormone levels for holistic wellness. All of the hormones in Winona treatments are plant-based and bioidentical, meaning they are functionally identical to those produced naturally in your body.`,
@@ -66,7 +71,9 @@ const items = [
   }
 ]
 
-const openQuestion = index => itemIndex.value = index === itemIndex.value ? false : index
+function openQuestion(index: number){
+  itemIndex.value = index === itemIndex.value ? false : index
+}
 </script>
 
 <style lang="scss" scoped>

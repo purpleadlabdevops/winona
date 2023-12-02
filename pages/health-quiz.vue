@@ -21,9 +21,8 @@
         <h3>How old are you?</h3>
         <p>This helps us understand where you are in your journey.</p>
         <input
-          type="tel"
+          type="number"
           v-model="age"
-          v-on:input="ageInput($event.target.value)"
           placeholder="Age"
           min="18" max="99"
           inputmode="numeric"
@@ -34,7 +33,7 @@
         <button
           type="button"
           class="btn btn-plum"
-          :disabled="ageError"
+          :disabled="!age || age < 18"
           @click.prevent="nextStep(2)">
           continue
         </button>
@@ -242,9 +241,7 @@
   </div>
 </template>
 
-<script setup>
-import {ref} from 'vue'
-
+<script lang="ts" setup>
 definePageMeta({
   layout: 'quiz'
 })
@@ -253,7 +250,7 @@ const step = ref(0)
 
 const emit = defineEmits(['onTesting'])
 
-const nextStep = index => {
+const nextStep = (index: number): void => {
   step.value = index
   if(index > 0){
     document.querySelector('.layout__quiz').classList.remove('layout__quiz-bg')
@@ -262,15 +259,7 @@ const nextStep = index => {
   document.querySelector('.layout__quiz').classList.add('layout__quiz-bg')
 }
 
-const age = (''),
-      ageError = ref(true),
-      ageInput = val => {
-        if(isNaN(val) || val.length === 0 || Number(val) < 18 || Number(val) > 99){
-          ageError.value = true
-          return
-        }
-        ageError.value = false
-      }
+const age = ref()
 
 const average = ref(false),
       averageItems = ['Great', 'Pretty Good', 'Could be better', `...Don't Ask`],
@@ -348,10 +337,6 @@ const birth = ref(false),
         birth.value = val
         e.target.classList.add('active')
       }
-
-const startVisit = () => {
-  console.log('startVisit')
-}
 
 onMounted(() => {
   setTimeout(()=>{

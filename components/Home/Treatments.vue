@@ -36,9 +36,18 @@
   </section>
 </template>
 
-<script  setup>
-import { ref } from 'vue'
-const items = ref([
+<script lang="ts" setup>
+interface ItemType {
+  title: string
+  img: string
+  text: string
+  body: boolean
+  vaginal: boolean
+  oral: boolean
+  patch: boolean
+}
+
+const items: Array<ItemType> = [
   {
     title: 'Estrogen Therapy',
     img: 'estrogen-therapy',
@@ -60,8 +69,8 @@ const items = ref([
     img: 'dhea',
     text: 'An effective, combination therapy that gently boosts testosterone to help maintain healthy body weight, increase lean muscle, and improve libido.',
     oral: true
-  },
-])
+  }
+]
 </script>
 
 <style lang="scss" scoped>

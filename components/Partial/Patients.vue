@@ -38,7 +38,6 @@
 </template>
 
 <script  setup>
-import { ref } from 'vue'
 import { Carousel, Slide, Navigation } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 const slider = {
