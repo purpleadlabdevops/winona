@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-type FormFeedbackType = 'incomplete' | 'agree' | 'email' | 'phone' | 'success' | null
-
 /* -----START V-MODELS----- */
 const isLoading = ref(false),
       success   = ref(true),
@@ -10,7 +8,7 @@ const isLoading = ref(false),
 /* -----END Agree----- */
 
 /* -----START Feedback----- */
-const formFeedback: Ref<FormFeedbackType> = ref(null),
+const formFeedback = ref(null),
       textFeedback = {
         error: 'There was an error processing your request.',
         success: 'Thanks for signing up!',
@@ -20,7 +18,7 @@ const formFeedback: Ref<FormFeedbackType> = ref(null),
         agree: 'Please agree to terms and conditions.'
       }
 
-const setFeedback = (type, status) => {
+const setFeedback = (type: any, status: any) => {
   formFeedback.value = type
   isLoading.value = false
   success.value = status
@@ -90,13 +88,13 @@ const submitForm = async () => {
             autocomplete="email"
             placeholder="ENTER YOUR EMAIL"
             :required="true" />
-          <div class="form__field form__field-6">
+          <div class="form__field form__feedback" v-if="formFeedback">
+            {{ textFeedback[formFeedback] }}
+          </div>
+          <div class="form__field form__field-6 form__submit">
             <button class="btn btn-mint" type="submit" @click.prevent="submitForm">
               {{ isLoading ? 'Loading...' : 'Submit' }}
             </button>
-          </div>
-          <div class="form__field form__field-6">
-            {{ formFeedback ? textFeedback[formFeedback] : '' }}
           </div>
         </form>
       </div>

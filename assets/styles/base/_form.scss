@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  position: relative;
   &__row{
     display: flex;
     flex-wrap: wrap;
@@ -92,5 +93,13 @@
   }
   &__small{
     font-size: 13px;
+  }
+  &__feedback{
+    font-size: 12px;
+    position: absolute;
+    left: 0; right: 0;
+    top: calc(100% + 10px);
+  }
+  &__submit{
   }
 }

@@ -1,8 +1,6 @@
 <script  setup>
 import { ref, watch } from 'vue'
 
-type FormFeedbackType = 'incomplete' | 'agree' | 'email' | 'phone' | 'success' | null
-
 /* -----START V-MODELS----- */
 const isLoading = ref(false),
       success   = ref(true),
@@ -14,7 +12,7 @@ const isLoading = ref(false),
 /* -----END Agree----- */
 
 /* -----START Feedback----- */
-const formFeedback: Ref<FormFeedbackType> = ref(null),
+const formFeedback = ref(null),
       textFeedback = {
         error: 'There was an error processing your request.',
         success: 'Thanks for signing up!',
@@ -98,13 +96,13 @@ const submitForm = async () => {
       v-model="agree"
       label="I agree to terms and conditions"
       :required="true" />
+    <div class="form__field form__feedback" v-if="formFeedback">
+      {{ textFeedback[formFeedback] }}
+    </div>
     <div class="form__field form__field-6">
       <button type="submit" @click.prevent="submitForm">
         {{ isLoading ? 'Loading...' : 'Submit' }}
       </button>
-    </div>
-    <div class="form__field form__field-6">
-      {{ formFeedback ? textFeedback[formFeedback] : '' }}
     </div>
   </form>
 </template>

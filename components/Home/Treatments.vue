@@ -62,13 +62,18 @@ const items: Array<ItemType> = [
     img: 'updated-progesterone-therapy',
     text: 'An assistive replacement therapy that may be recommended by your doctor alongside your estrogen treatment.',
     body: true,
-    oral: true
+    vaginal: false,
+    oral: true,
+    patch: false
   },
   {
     title: 'DHEA',
     img: 'dhea',
     text: 'An effective, combination therapy that gently boosts testosterone to help maintain healthy body weight, increase lean muscle, and improve libido.',
-    oral: true
+    body: false,
+    vaginal: false,
+    oral: true,
+    patch: false
   }
 ]
 </script>

@@ -43,8 +43,8 @@ if(process.client){
 }
 
 interface bannerItemType {
-  icon: string | boolean
-  text: string | boolean
+  icon: string
+  text: string
 }
 
 const bannerItems: Array<bannerItemType> = [

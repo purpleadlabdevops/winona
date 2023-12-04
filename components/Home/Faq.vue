@@ -15,13 +15,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const itemIndex = ref(false)
+let itemIndex = ref()
 
 interface ItemType {
-  q: string | boolean
-  a: string | boolean
+  q: string
+  a: string
 }
 
 const items: Array<ItemType> = [
@@ -71,8 +69,8 @@ const items: Array<ItemType> = [
   }
 ]
 
-function openQuestion(index: number){
-  itemIndex.value = index === itemIndex.value ? false : index
+const openQuestion = (index: number): any => {
+  itemIndex.value = index === itemIndex.value ? null : index
 }
 </script>
 

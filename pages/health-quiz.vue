@@ -48,7 +48,7 @@
           type="button"
           v-for="(item, index) in averageItems"
           :key="`step_2_${index}`"
-          @click.prevent="chooseAverage(item, $event)">
+          @click.prevent="chooseAverage(item, $event.target)">
           {{ item }}
         </button>
         <button
@@ -75,7 +75,7 @@
           type="button"
           v-for="(item, index) in moodItems"
           :key="`step_3_${index}`"
-          @click.prevent="chooseMood(item, $event)">
+          @click.prevent="chooseMood(item, $event.target)">
           {{ item }}
         </button>
         <button
@@ -102,7 +102,7 @@
             type="button"
             v-for="(item, index) in symptomsItems"
             :key="`step_4_${index}`"
-            @click.prevent="chooseSymptoms(item, $event)">
+            @click.prevent="chooseSymptoms(item, $event.target)">
             {{ item }}
           </button>
           <p v-if="symptoms.length !== 3">UP TO 3 SYMPTOMS</p>
@@ -132,7 +132,7 @@
               <input
                 type="email"
                 v-model="email"
-                v-on:input="emailInput($event.target.value)"
+                v-on:input="emailInput(email)"
                 placeholder="yourname@email.com"
                 :style="emailError ? 'border-color: red' : ''"
               />
@@ -161,7 +161,7 @@
           type="button"
           v-for="(item, index) in therapyItems"
           :key="`step_6_${index}`"
-          @click.prevent="chooseTherapy(item, $event)">
+          @click.prevent="chooseTherapy(item, $event.target)">
           {{ item }}
         </button>
         <button
@@ -186,7 +186,7 @@
           type="button"
           v-for="(item, index) in triedItems"
           :key="`step_7_${index}`"
-          @click.prevent="chooseTried(item, $event)">
+          @click.prevent="chooseTried(item, $event.target)">
           {{ item }}
         </button>
         <button
@@ -211,7 +211,7 @@
           type="button"
           v-for="(item, index) in birthItems"
           :key="`step_8_${index}`"
-          @click.prevent="chooseBirth(item, $event)">
+          @click.prevent="chooseBirth(item, $event.target)">
           {{ item }}
         </button>
         <button
@@ -250,59 +250,62 @@ const step = ref(0)
 
 const emit = defineEmits(['onTesting'])
 
-const nextStep = (index: number): void => {
-  step.value = index
-  if(index > 0){
-    document.querySelector('.layout__quiz').classList.remove('layout__quiz-bg')
-    return
-  }
-  document.querySelector('.layout__quiz').classList.add('layout__quiz-bg')
-}
+const layoutQuiz = document.querySelector('.layout__quiz'),
+      nextStep = (index: number): void => {
+        step.value = index
+        if(layoutQuiz !== null){
+          if(index > 0){
+            layoutQuiz.classList.remove('layout__quiz-bg')
+            return
+          }
+          layoutQuiz.classList.add('layout__quiz-bg')
+        }
+      }
 
 const age = ref()
 
 const average = ref(false),
       averageItems = ['Great', 'Pretty Good', 'Could be better', `...Don't Ask`],
-      chooseAverage = (val, e) => {
+      chooseAverage = (val: string, e: EventTarget | null): void => {
         document.querySelectorAll('.health__step-2 .btn-gray').forEach(el => el.classList.remove('active'))
-        average.value = val
-        e.target.classList.add('active')
+        average.value = val ? true : false;
+        (e as HTMLButtonElement).classList.add('active')
       }
 
 const mood = ref(false),
       moodItems = ['Yes', 'No'],
-      chooseMood = (val, e) => {
+      chooseMood = (val: string, e: EventTarget | null): void => {
         document.querySelectorAll('.health__step-3 .btn-gray').forEach(el => el.classList.remove('active'))
-        mood.value = val
-        e.target.classList.add('active')
+        mood.value = val ? true : false;
+        (e as HTMLButtonElement).classList.add('active')
       }
 
-const symptoms = ref([]),
+const symptoms = ref<Array<string>>([]),
       symptomsItems = ['HOT FLASHES','SLEEP DISRUPTIONS','ANXIETY','LOW LIBIDO','NIGHT SWEATS','MOOD SWINGS','SKIN CHANGES','LOW ENERGY','WEIGHT GAIN','FATIGUE','BRAIN FOG','MUSCLE LOSS','VAGINAL DRYNESS','HAIR CHANGES','URINARY CONCERNS','OTHER'],
-      chooseSymptoms = (val, e) => {
+      chooseSymptoms = (val: string, e: EventTarget | null) => {
         if(symptoms.value.includes(val)){
           const includedIndex = symptoms.value.indexOf(val)
           symptoms.value.splice(includedIndex, 1);
           document.querySelectorAll('.health__step-4 .btn-gray').forEach(el => {
-            el.disabled = false;
+            el.setAttribute('disabled', '')
           })
         } else {
           symptoms.value.push(val)
           if(symptoms.value.length === 3){
             document.querySelectorAll('.health__step-4 .btn-gray').forEach(el => {
               if( !symptoms.value.includes(el.innerHTML) ){
-                el.disabled = true;
+                el.removeAttribute('disabled')
               }
             })
           }
         }
-        e.target.classList.toggle('active')
+        (e as HTMLButtonElement).classList.toggle('active')
       }
 
 const email = ref(''),
       emailError = ref(false),
       regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      emailInput = val => {
+      emailInput = (val: string | null) => {
         emailError.value = !regex.test(email.value)
       },
       emailSubmit = () => {
@@ -314,35 +317,37 @@ const email = ref(''),
         emailError.value = true
       }
 
-const therapy = ref(false),
+const therapy = ref<string | boolean>(false),
       therapyItems = ['Yes', 'No'],
-      chooseTherapy = (val, e) => {
+      chooseTherapy = (val: string, e: EventTarget | null) => {
         document.querySelectorAll('.health__step-6 .btn-gray').forEach(el => el.classList.remove('active'))
-        therapy.value = val
-        e.target.classList.add('active')
+        therapy.value = val;
+        (e as HTMLButtonElement).classList.add('active')
       }
 
-const tried = ref(false),
+const tried = ref<string | boolean>(false),
       triedItems = ['Yes', 'No'],
-      chooseTried = (val, e) => {
+      chooseTried = (val: string, e: EventTarget | null) => {
         document.querySelectorAll('.health__step-7 .btn-gray').forEach(el => el.classList.remove('active'))
-        tried.value = val
-        e.target.classList.add('active')
+        tried.value = val;
+        (e as HTMLButtonElement).classList.add('active')
       }
 
-const birth = ref(false),
+const birth = ref<string | boolean>(false),
       birthItems = ['I am not taking any birth control.', 'Non-hormonal.', 'Hormonal birth control.'],
-      chooseBirth = (val, e) => {
+      chooseBirth = (val: string, e: EventTarget | null) => {
         document.querySelectorAll('.health__step-8 .btn-gray').forEach(el => el.classList.remove('active'))
-        birth.value = val
-        e.target.classList.add('active')
+        birth.value = val;
+        (e as HTMLButtonElement).classList.add('active')
       }
 
 onMounted(() => {
   setTimeout(()=>{
-    const headerQuiz = document.querySelector('.header__quiz'),
-          pageHealth = document.querySelector('.page__health')
-    pageHealth.style = `height: calc(100vh - ${headerQuiz.clientHeight}px);`
+    const headerQuiz = document.querySelector<HTMLElement>('.header__quiz'),
+          pageHealth = document.querySelector<HTMLElement>('.page__health')
+    if(pageHealth !== null && headerQuiz !== null){
+      pageHealth.style.height = `calc(100vh - ${headerQuiz.clientHeight}px`
+    }
   }, 0)
 })
 </script>

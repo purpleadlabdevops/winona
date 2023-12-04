@@ -24,11 +24,11 @@
 
 <script lang="ts" setup>
 interface ItemType {
-  title: string | boolean
-  subtitle: string | boolean
-  text: string | boolean
-  subtext: string | boolean
-  img: string | boolean
+  title: string
+  subtitle: string
+  text: string
+  subtext?: string
+  img: string
 }
 
 const items: Array<ItemType> = [
@@ -181,7 +181,6 @@ const items: Array<ItemType> = [
     margin-right: auto;
     margin-bottom: 20px;
   }
-  &__subtext{}
   &__btn{
     max-width: 572px;
     text-align: center;
