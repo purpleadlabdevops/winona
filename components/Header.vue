@@ -21,12 +21,9 @@
   </header>
 </template>
 
-<script  setup>
-import { ref } from 'vue'
-
-const route = useRoute()
-
-const fixClass = ref(false)
+<script lang="ts" setup>
+const route = <any>useRoute(),
+      fixClass = ref<boolean>(false)
 
 if(process.client){
   window.addEventListener('scroll', () => {

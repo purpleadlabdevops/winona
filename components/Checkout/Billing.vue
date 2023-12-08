@@ -4,7 +4,7 @@
       <button
         class="billing__close"
         type="button"
-        @click.prevent="closeBilling">
+        @click.prevent="emit('step', 'billing')">
         <svg data-v-25c87022="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="x circle fill" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-x-circle-fill close-icon b-icon bi text-info"><g data-v-25c87022="" transform="translate(8 8) scale(1.3 1.3) translate(-8 -8)"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path></g></svg>
       </button>
       <div class="billing__card">
@@ -25,18 +25,16 @@
       <button
         type="button"
         class="btn"
-        @click.prevent="closeBilling">
+        @click.prevent="emit('step', 'billing')">
         I understand
       </button>
     </div>
   </section>
 </template>
 
-<script setup>
-const emit = defineEmits(['billing']),
-      closeBilling = () => emit('billing', false)
-
-const showBilling = ref(false)
+<script lang="ts" setup>
+const emit = defineEmits(['step']),
+      showBilling = ref<String | Boolean>(false)
 
 onMounted(() => {
   setTimeout(()=>{

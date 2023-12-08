@@ -1,5 +1,5 @@
 <template>
-  <section class="checkout__start" :class="checkoutHide">
+  <section class="checkout__start" :class="checkoutHide ? 'checkout__start-hide' : ''">
     <svg class="checkout__logo" xmlns="http://www.w3.org/2000/svg" width="30" height="27" viewBox="0 0 30 27" fill="none"><path d="M26.4395 18.5298L15.6275 6.36712H14.3725L3.5585 18.532L3.5365 0H0V27H1.3615L15.0005 10.8077L28.5975 26.8985L28.683 27H30V0H26.4175L26.4395 18.5298Z" fill="#CDFCB1"/></svg>
     <div class="checkout__consult">DOCTOR CONSULTATION</div>
     <div class="container">
@@ -7,20 +7,21 @@
         Your Winona doctor visit is free and includes unlimited follow-ups. Assuming there are not any questions or concerns from you or the doctor, and the doctor feels the treatments selected are safe, the prescriptions will be filled. You will have the opportunity to message your doctor directly from the patient portal after onboarding is completed. <br><br>
         Coming up, you will confirm your order, along with billing and shipping information. Your card will be authorized, but not charged, until treatment is confirmed by you and your Winona physician.
       </p>
-      <button class="btn btn-purple" @click="start">CONTINUE</button>
+      <button class="btn btn-purple" @click="setStart">CONTINUE</button>
     </div>
   </section>
 </template>
 
-<script setup>
-const emit = defineEmits(['start']),
-      checkoutHide = ref(false),
-      start = () => {
-        checkoutHide.value = 'checkout__start-hide'
-        setTimeout(()=>{
-          emit('start', false)
-        }, 500)
-      }
+<script lang="ts" setup>
+const emit = defineEmits(['step']),
+      checkoutHide = ref<Boolean>(false)
+
+const setStart = (): void => {
+  checkoutHide.value = true
+  setTimeout(() => {
+    emit('step', 'identity')
+  }, 300)
+}
 </script>
 
 <style lang="scss" scoped>

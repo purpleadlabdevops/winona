@@ -9,12 +9,23 @@
   border: none;
   letter-spacing: .15rem;
   text-transform: uppercase;
+  cursor: pointer;
   &:hover{
     opacity: .9;
   }
   &:disabled{
     opacity: .5;
     cursor: no-drop;
+  }
+  &-purple_txt{
+    background: none;
+    border: 1px solid var(--purple);
+    color: var(--purple);
+    &:hover{
+      color: #6f53b4;
+      background-color: #f5f1ff;
+      border-color: #f5f1ff;
+    }
   }
   &-white{
     background: var(--white);

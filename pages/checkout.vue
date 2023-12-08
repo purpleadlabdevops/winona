@@ -1,79 +1,33 @@
 <template>
   <div class="page page__checkout">
     <TransitionGroup name="fade">
-      <CheckoutStart
-        v-if="startModal"
-        @start="getStart" />
-      <CheckoutStatus
-        v-if="!startModal"
-        @start="getStart"
-        @safety="toggleSafety"
-        @shipping="toggleShipping"
-        @payment="togglePayment" />
-      <CheckoutSummary
-        v-if="!startModal && !shipping && !payment"
-        @cart="toggleCart"
-        @start="getStart"
-        @safety="toggleSafety"
-        @shipping="toggleShipping" />
-      <CheckoutCart
-        v-if="cartModal"
-        @cart="toggleCart" />
-      <CheckoutSafety
-        v-if="safetyModal"
-        @safety="toggleSafety" />
-      <CheckoutShipping
-        v-if="shipping"
-        @shipping="toggleShipping"
-        @payment="togglePayment" />
-      <CheckoutPayment
-        v-if="payment"
-        @billing="toggleBilling" />
-      <CheckoutBilling
-        v-if="billingModal"
-        @billing="toggleBilling" />
+      <CheckoutStart         @step="setStep" v-if="step === 'start'" />
+      <CheckoutStatus        @step="setStep" v-if="step !== 'start'" />
+      <CheckoutIdentity      @step="setStep" v-if="step === 'identity' || step === 'identityModal'" />
+      <CheckoutIdentityModal @step="setStep" v-if="step === 'identityModal'" />
+      <CheckoutSummary       @step="setStep" v-if="step === 'summary' || step === 'cart' || step === 'safety'" />
+      <CheckoutCart          @step="setStep" v-if="step === 'cart'" />
+      <CheckoutSafety        @step="setStep" v-if="step === 'safety'" />
+      <CheckoutShipping      @step="setStep" v-if="step === 'shipping'" />
+      <CheckoutPayment       @step="setStep" v-if="step === 'payment'" />
+      <CheckoutBilling       @step="setStep" v-if="step === 'billing'" />
     </TransitionGroup>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useGlobalStore } from '~/stores/global'
-
-const globalStore = useGlobalStore()
 
 definePageMeta({
   layout: 'checkout'
 })
 
-const startModal = ref(true),
-      getStart = val => {
-        if(shipping.value){
-          shipping.value = false
-          return
-        }
-        if(payment.value){
-          payment.value = false
-          shipping.value = true
-          return
-        }
-        startModal.value = val
-        globalStore.changeProgress(0)
-      }
+const globalStore = useGlobalStore(),
+      step = ref<string>('start')
 
-const cartModal = ref(false),
-      toggleCart = val => cartModal.value = val
-
-const safetyModal = ref(false),
-      toggleSafety = val => safetyModal.value = val
-
-const billingModal = ref(false),
-      toggleBilling = val => billingModal.value = val
-
-const shipping = ref(false),
-      toggleShipping = val => shipping.value = val
-
-const payment = ref(false),
-      togglePayment = val => payment.value = val
+const setStep = (val: string): void => {
+  step.value = val
+}
 </script>
 
 <style lang="scss" scoped>

@@ -5,52 +5,52 @@
       <p>Please confirm the address of where you would like your Winona products shipped. We ship USPS Priority unless otherwise requested.</p>
       <form @submit.prevent="submitForm" class="form">
         <FieldText
-          v-model="firstName"
+          :value="firstName"
           label="First name*"
           placeholder="First name"
           autocomplete="given-name"
           class="form__field-6"
           :required="true" />
         <FieldText
-          v-model="lastName"
+          :value="lastName"
           label="Last name*"
           placeholder="Last name"
           autocomplete="family-name"
           class="form__field-6"
           :required="true" />
         <FieldText
-          v-model="address"
+          :value="address"
           label="Street Address*"
           placeholder="Street Address"
           autocomplete="street-address"
           class="form__field-8"
           :required="true" />
         <FieldText
-          v-model="apartment"
+          :value="apartment"
           label="Apartment/Suite"
           placeholder="Apartment/Suite"
           class="form__field-4"
           autocomplete="address-line2" />
         <FieldText
-          v-model="city"
+          :value="city"
           label="City*"
           placeholder="City"
           autocomplete="address-level2"
           :required="true" />
         <FieldStates
-          v-model="state"
+          :value="state"
           label="State*"
           autocomplete="address-level1"
           :required="true" />
         <FieldPhone
-          v-model="phone"
+          :value="phone"
           label="Phone*"
           placeholder="Phone Number"
           autocomplete="phone"
           class="form__field-8"
           :required="true" />
         <FieldText
-          v-model="zip"
+          :value="zip"
           label="Zip Code*"
           placeholder="Zip Code"
           autocomplete="postal-code"
@@ -72,33 +72,34 @@
   </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { useGlobalStore } from '~/stores/global'
 
-const globalStore = useGlobalStore()
-const emit = defineEmits(['shipping', 'payment'])
-/* -----START MODELS----- */
-const isLoading = ref(false),
-      success   = ref(true),
-      firstName = ref(''),
-      lastName  = ref(''),
-      address   = ref(''),
-      apartment = ref(''),
-      city      = ref(''),
-      state     = ref(''),
-      zip       = ref(''),
-      phone     = ref('')
+const globalStore = useGlobalStore(),
+      emit = defineEmits(['step'])
 
-const formFeedback = ref(''),
-      textFeedback = {
+/* -----START MODELS----- */
+const isLoading = ref<boolean>(false),
+      success   = ref<string | boolean>(true),
+      firstName = ref<string>(''),
+      lastName  = ref<string>(''),
+      address   = ref<string>(''),
+      apartment = ref<string>(''),
+      city      = ref<string>(''),
+      state     = ref<string>(''),
+      zip       = ref<string>(''),
+      phone     = ref<string>('')
+
+const formFeedback = ref<string | null>(''),
+      textFeedback: { [key: string]: string; } = {
         error: 'There was an error processing your request.',
         success: 'Shipping information was saved.',
         incomplete: 'Please complete all required fields.',
         phone: 'Please enter a valid phone number.',
       }
 
-const setFeedback = (type, status) => {
+const setFeedback = (type: string, status: any) => {
   formFeedback.value = type
   isLoading.value = false
   success.value = status
@@ -141,8 +142,7 @@ const submitForm = () => {
     zip: zip.value,
     phone: phone.value
   })
-  emit('shipping', false)
-  emit('payment', true)
+  emit('step', 'payment')
 }
 
 onMounted(() => {

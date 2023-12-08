@@ -9,10 +9,10 @@
         <div class="payment__cart__item" v-for="product in globalStore.products">
           <div class="payment__cart__info">
             <h4>{{ product.name }}</h4>
-            <span>Ship every {{ globalStore.productsShip === 'one' ? 'month':'3 months' }}</span>
+            <span>Ship every {{ productsShip === 'one' ? 'month':'3 months' }}</span>
           </div>
           <div class="payment__cart__price">
-            <h3>${{ product[globalStore.productsShip] }}.00/month</h3>
+            <h3>${{ getProductShip(product) }}.00/month</h3>
           </div>
         </div>
         <div class="payment__cart__item payment__cart__item-last">
@@ -52,7 +52,6 @@
                 class="payment__card__date"
                 id="payment__card__date"
                 v-model="cardDate"
-                @input="inputCardDate"
                 type="text"
                 v-maska
                 data-maska="##/##"
@@ -62,7 +61,6 @@
                 class="payment__card__code"
                 id="payment__card__code"
                 v-model="cardCode"
-                @input="inputCardCode"
                 type="text"
                 v-maska
                 :data-maska="['####', '###']"
@@ -159,31 +157,37 @@
   </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { useGlobalStore } from '~/stores/global'
 
-const globalStore = useGlobalStore()
-const emit = defineEmits(['billing'])
-const router = useRouter()
-/* -----START MODELS----- */
-const cardNumber       = ref(''),
-      cardDate         = ref(''),
-      cardCode         = ref(''),
-      billingLoading   = ref(false),
-      success          = ref(true),
-      billingFirstName = ref(''),
-      billingLastName  = ref(''),
-      billingAddress   = ref(''),
-      billingApartment = ref(''),
-      billingCity      = ref(''),
-      billingState     = ref(''),
-      billingZip       = ref(''),
-      billingPhone     = ref(''),
-      billingSame      = ref(true)
+const globalStore = useGlobalStore(),
+      emit = defineEmits(['billing']),
+      router = useRouter(),
+      productsShip = globalStore.productsShip
 
-const billingFormFeedback = ref(''),
-      billingTextFeedback = {
+const getProductShip = (obj: any): void => {
+  console.dir(obj)
+}
+
+/* -----START MODELS----- */
+const cardNumber       = ref<string>(''),
+      cardDate         = ref<string>(''),
+      cardCode         = ref<string>(''),
+      billingLoading   = ref<boolean>(false),
+      success          = ref<boolean>(true),
+      billingFirstName = ref<string>(''),
+      billingLastName  = ref<string>(''),
+      billingAddress   = ref<string>(''),
+      billingApartment = ref<string>(''),
+      billingCity      = ref<string>(''),
+      billingState     = ref<string>(''),
+      billingZip       = ref<string>(''),
+      billingPhone     = ref<string>(''),
+      billingSame      = ref<boolean>(true)
+
+const billingFormFeedback = ref<string | null>(''),
+      billingTextFeedback: { [key: string]: string; } = {
         error: 'There was an error processing your request.',
         success: 'Your order was received.',
         incomplete: 'Please complete all required fields.',
@@ -193,7 +197,7 @@ const billingFormFeedback = ref(''),
         code: 'Please enter a valid Card Code.',
       }
 
-const setFeedback = (type, status) => {
+const setFeedback = (type: string, status: any) => {
   billingFormFeedback.value = type
   billingLoading.value = false
   success.value = status
@@ -248,16 +252,20 @@ const submitForm = async () => {
     return
   }
 
-  globalStore.changeBilling({
-    firstName: globalStore.billingSame ? globalStore.shipping.firstName : billingFirstName.value,
-    lastName: globalStore.billingSame ? globalStore.shipping.lastName : billingLastName.value,
-    address: globalStore.billingSame ? globalStore.shipping.address : billingAddress.value,
-    apartment: globalStore.billingSame ? globalStore.shipping.apartment : billingApartment.value,
-    city: globalStore.billingSame ? globalStore.shipping.city : billingCity.value,
-    state: globalStore.billingSame ? globalStore.shipping.state : billingState.value,
-    zip: globalStore.billingSame ? globalStore.shipping.zip : billingZip.value,
-    phone: globalStore.billingSame ? globalStore.shipping.phone : billingPhone.value
-  })
+  if(globalStore.shipping !== null && globalStore.billingSame){
+    globalStore.changeBilling(globalStore.shipping)
+  } else {
+    globalStore.changeBilling({
+      firstName: billingFirstName.value,
+      lastName: billingLastName.value,
+      address: billingAddress.value,
+      apartment: billingApartment.value,
+      city: billingCity.value,
+      state: billingState.value,
+      zip: billingZip.value,
+      phone: billingPhone.value
+    })
+  }
 
   globalStore.changePayment({
     cardNumber: cardNumber.value.trim().replace(/[\s]/g, ''),
@@ -266,7 +274,9 @@ const submitForm = async () => {
     cardSecurityCode: cardCode.value,
   })
 
-  let productsArr = [], amount = 0
+  let productsArr: any[] = [],
+      amount: number = 0
+
   Object.values(globalStore.products).forEach(product => {
     if(product.model){
       productsArr.push({
@@ -310,10 +320,10 @@ onMounted(function(){
 
 const openBilling = () => emit('billing', true)
 
-const changeBillingSame = e => globalStore.changeBillingSame(billingSame.value)
+const changeBillingSame = () => globalStore.changeBillingSame(billingSame.value)
 
-const detectCardType = number => {
-  const re = {
+const detectCardType = (number: any) => {
+  const re: { [key: string]: RegExp; } = {
       electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
       maestro: /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
       dankort: /^(5019)\d+$/,
@@ -334,9 +344,9 @@ const detectCardType = number => {
   }
 }
 
-const detectedCard = ref(null)
+const detectedCard = ref<any>(false)
 
-const inputCardNumber = e => {
+const inputCardNumber = (e: any): void => {
   const cleanNumber = cardNumber.value.trim().replace(/[\s]/g, '')
   detectedCard.value = detectCardType(cleanNumber)
 }
@@ -397,7 +407,6 @@ const inputCardNumber = e => {
         font-size: 13px;
       }
     }
-    &__info{}
     &__price{
       font-size: 13px;
       span{

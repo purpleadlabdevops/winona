@@ -4,7 +4,7 @@
       <button
         class="cart__close"
         type="button"
-        @click.prevent="back">
+        @click.prevent="emit('step', 'summary')">
         <svg data-v-25c87022="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="x circle fill" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-x-circle-fill close-icon b-icon bi text-info"><g data-v-25c87022="" transform="translate(8 8) scale(1.3 1.3) translate(-8 -8)"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path></g></svg>
       </button>
       <h2>Edit your prescribed treatments</h2>
@@ -22,9 +22,9 @@
             type="checkbox"
             v-model="product.model"
             @change="changeCheckbox(id)"
-            :id="id"
+            :id?="id"
             :key="id" />
-          <label :for="id"></label>
+          <label :for?="id"></label>
         </div>
         <div class="cart__info">
           <Image format="webp" :name="product.img" />
@@ -43,7 +43,7 @@
             </div>
             <button
               class="cart__more"
-              @click.prevent="readMore(id, $event)"
+              @click.prevent="readMore(id, $event.target)"
               :key="`read_${id}`">
               Read More
             </button>
@@ -79,23 +79,23 @@
       <button
         class="btn btn-lg"
         type="button"
-        @click.prevent="back">
+        @click.prevent="emit('step', 'summary')">
         UPDATE
       </button>
     </div>
   </section>
 </template>
 
-<script setup>
-import { useGlobalStore } from '~/stores/global'
+<script lang="ts" setup>
+import { useGlobalStore } from '~/stores/global';
 
-const globalStore = useGlobalStore()
+const globalStore = useGlobalStore(),
+      emit = defineEmits(['step']),
+      showCart = ref<string | boolean>(false)
 
-const emit = defineEmits(['cart', 'ship']),
-      back = () => emit('cart', false),
-      changeShip = val => globalStore.changeProductsShip(val)
-
-const showCart = ref(false)
+const changeShip = (val: string): void => {
+  globalStore.changeProductsShip(val)
+}
 
 onMounted(() => {
   setTimeout(()=>{
@@ -113,26 +113,30 @@ onBeforeUnmount(() => {
   document.documentElement.style.width = 'auto';
 })
 
-const readMore = (id, e) => {
-  if(e.target.innerHTML === 'Read More'){
-    e.target.innerHTML = 'Read Less'
-    document.querySelector(`.short-${id}`).style.display = 'none'
-    document.querySelector(`.long-${id}`).style.display = 'block'
+const readMore = (id: string | number, e: EventTarget | null): void => {
+  const btn = (e as HTMLButtonElement),
+        short = document.querySelector<HTMLElement>(`.short-${id}`),
+        long = document.querySelector<HTMLElement>(`.long-${id}`)
+
+  if(btn.innerHTML === 'Read More'){
+    btn.innerHTML = 'Read Less'
+    if(short !== null && long !== null){
+      short.style.display = 'none'
+      long.style.display = 'block'
+    }
   } else {
-    e.target.innerHTML = 'Read More'
-    document.querySelector(`.short-${id}`).style.display = 'block'
-    document.querySelector(`.long-${id}`).style.display = 'none'
+    btn.innerHTML = 'Read More'
+    if(short !== null && long !== null){
+      short.style.display = 'block'
+      long.style.display = 'none'
+    }
   }
 }
 
-const changeCheckbox = id => {
-  let count = 0
-  Object.keys(globalStore.products).forEach(item => {
-    if(globalStore.products[item].model) count++
-  })
-  if(count === 0){
+const changeCheckbox = (id: string | number): void => {
+  if(!globalStore.products['product_1'].model && !globalStore.products['product_2'].model){
     alert(' Please select at least one product. Because of your medical history, it would not be safe to take Estrogen without Progesterone.')
-    globalStore.products[id].model = true
+    globalStore.changeModel(id, true)
   }
 }
 </script>
@@ -310,7 +314,6 @@ const changeCheckbox = id => {
     font-size: res(15, 17);
     font-weight: 700;
   }
-  &__txt{}
   &__more{
     font-size: res(11, 13);
     color: var(--purple);

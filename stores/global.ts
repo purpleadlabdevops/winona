@@ -1,9 +1,19 @@
 import { defineStore } from 'pinia'
 
+interface Product { [key: string]: {
+  name: string
+  short: string
+  long: string
+  one: number
+  three: number
+  img: string
+  model: boolean
+}}
+
 export const useGlobalStore = defineStore({
   id: 'global',
   state: () => ({
-    products: {
+    products: <Product>{
       product_1: {
         name: 'Estrogen Patch',
         short: `This natural, FDA approved patch is safe, proven, and effective. It'll have you feeling and looking your best by returning your hormones to normal, youthful levels.`,
@@ -23,7 +33,7 @@ export const useGlobalStore = defineStore({
         model: true,
       }
     },
-    productsShip: 'one',
+    productsShip: <string>'one',
     shipping: null,
     billing: null,
     payment: null,
@@ -31,23 +41,26 @@ export const useGlobalStore = defineStore({
     progress: 0,
   }),
   actions: {
-    changeProductsShip(val){
+    changeProductsShip(val: string){
       this.productsShip = val
     },
-    changeShipping(obj){
+    changeShipping(obj: any){
       this.shipping = obj
     },
-    changeBilling(obj){
+    changeBilling(obj: any){
       this.billing = obj
     },
-    changePayment(obj){
+    changePayment(obj: any){
       this.payment = obj
     },
-    changeBillingSame(boolean){
+    changeBillingSame(boolean: boolean){
       this.billingSame = boolean
     },
-    changeProgress(val){
+    changeProgress(val: number){
       this.progress = val
+    },
+    changeModel(key: any, value: boolean){
+      this.products[key].model = value
     },
   }
 })

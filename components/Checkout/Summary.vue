@@ -7,7 +7,7 @@
         <h3>Prescription Treatment</h3>
         <button
           class="checkout__edit"
-          @click.prevent="openCart"
+          @click.prevent="emit('step', 'cart')"
           type="button">
           EDIT
         </button>
@@ -16,7 +16,7 @@
         <div class="checkout__product" v-for="product in globalStore.products" :class="!product.model ? 'checkout__product-hide':''">
           <h3>{{ product.name }}</h3>
           <p>Ship every {{ globalStore.productsShip === 'one' ? 'month':'3 months' }}</p>
-          <p>${{ product[globalStore.productsShip] }}.00/month</p>
+          <p>${{ globalStore.productsShip === 'one' ? product.one : product.three }}.00/month</p>
           <Image format="webp" :name="product.img" />
         </div>
       </div>
@@ -29,28 +29,23 @@
           v-model="safety"
         />
         <label for="safety">
-          I have read and understand the <button @click.prevent="showSafety">Safety Information</button> associated with these treatments.
+          I have read and understand the <button @click.prevent="emit('step', 'safety')">Safety Information</button> associated with these treatments.
         </label>
       </div>
       <button
         class="btn btn-purple checkout__submit"
         :disabled="!safety"
-        @click.prevent="checkoutContinue">CONTINUE</button>
+        @click.prevent="emit('step', 'shipping')">CONTINUE</button>
     </div>
   </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useGlobalStore } from '~/stores/global'
 
-const globalStore = useGlobalStore()
-
-const safety = ref(true)
-
-const emit = defineEmits(['cart', 'safety', 'shipping']),
-      openCart = () => emit('cart', true),
-      showSafety = () => emit('safety', true),
-      checkoutContinue = () => emit('shipping', true)
+const globalStore = useGlobalStore(),
+      emit = defineEmits(['step']),
+      safety = ref<Boolean>(true)
 
 onMounted(() => {
   setTimeout(()=>{
@@ -85,6 +80,7 @@ onMounted(() => {
   }
 }
 </style>
+
 <style lang="scss" scoped>
 .checkout{
   &__treatment{

@@ -1,14 +1,14 @@
 <template>
   <section class="checkout__status">
     <div class="container">
-      <button class="checkout__back" @click="back"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="13" viewBox="0 0 25 13" fill="none"><path d="M25 5.7692L5.34058e-05 5.7692" stroke="#1A6A72" stroke-width="1.4"/><path d="M5.76953 0C5.76953 1.92307 3.84631 5.28845 0.000277195 5.28845" stroke="#1A6A72" stroke-width="1.4"/><path d="M5.76953 12.0192C5.76953 10.0961 3.84635 6.24998 0.000313117 6.24998" stroke="#1A6A72" stroke-width="1.4"/></svg></button>
+      <button class="checkout__back" @click="emit('step', 'start')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="13" viewBox="0 0 25 13" fill="none"><path d="M25 5.7692L5.34058e-05 5.7692" stroke="#1A6A72" stroke-width="1.4"/><path d="M5.76953 0C5.76953 1.92307 3.84631 5.28845 0.000277195 5.28845" stroke="#1A6A72" stroke-width="1.4"/><path d="M5.76953 12.0192C5.76953 10.0961 3.84635 6.24998 0.000313117 6.24998" stroke="#1A6A72" stroke-width="1.4"/></svg></button>
       <ul class="checkout__progress">
         <li>
-          <span :style="`width: ${accountCreation}%`"></span>
+          <span :style="`width: 100%`"></span>
           Account Creation
         </li>
         <li>
-          <span :style="`width: ${intake}%`"></span>
+          <span :style="`width: 100%`"></span>
           Intake
         </li>
         <li>
@@ -16,26 +16,15 @@
           Onboarding Complete
         </li>
       </ul>
-      <div class="checkout__visit">Visit Summary</div>
     </div>
   </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useGlobalStore } from '~/stores/global'
 
-const globalStore = useGlobalStore()
-
-const emit = defineEmits(['start']),
-      accountCreation = ref(100),
-      intake = ref(100),
-      back = () => emit('start', true)
-
-onMounted(() => {
-  setTimeout(()=>{
-    globalStore.changeProgress(50)
-  }, 500)
-})
+const globalStore = useGlobalStore(),
+      emit = defineEmits(['step'])
 </script>
 
 <style lang="scss" scoped>
@@ -62,8 +51,10 @@ onMounted(() => {
     width: 100%;
     text-align: left;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
     @media(min-width:768px){
-      width: 150px;
+      width: res(50, 150);
       padding: 0;
       margin-bottom: 0;
     }
@@ -73,7 +64,7 @@ onMounted(() => {
     justify-content: space-between;
     width: calc(100% - 25px);
     @media(min-width:768px){
-      width: calc(100% - 150px);
+      width: calc(100% - res(50, 150));
     }
     li{
       width: 100%;
@@ -108,14 +99,6 @@ onMounted(() => {
         display: block;
         transition: 1s ease;
       }
-    }
-  }
-  &__visit{
-    position: absolute;
-    top: calc(100% + 72px);
-    padding-left: 100px;
-    @media(max-width:767px){
-      display: none;
     }
   }
 }
